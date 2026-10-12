@@ -21,6 +21,7 @@ async def handler(websocket):
     try:
         # Wait for each incoming message from this client.
         async for message in websocket:
+            #print("Server sees:", message[:100])
             # Relay the message to everyone except the sender.
             for other in clients:
                 if other is not websocket:
