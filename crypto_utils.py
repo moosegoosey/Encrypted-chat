@@ -8,6 +8,7 @@ Uses hybrid encryption:
 """
 
 import os
+import hashlib
 
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
@@ -81,3 +82,14 @@ def aes_decrypt(key, blob):
     modified in any way, which protects against tampering."""
     nonce, ciphertext = blob[:12], blob[12:]
     return AESGCM(key).decrypt(nonce, ciphertext, None)
+
+# ------------------------------------------------------- Fingerprints ----
+
+def fingerprint(public_key_bytes):
+    """Return a short, human-readable fingerprint of a public key.
+
+    Both users compare this value over a separate channel (call, in person).
+    If it matches, the key was not swapped by a man-in-the-middle.
+    """
+    digest = hashlib.sha256(public_key_bytes).hexdigest()[:32]  # first 128 bits
+    return " ".join(digest[i:i + 4] for i in range(0, 32, 4))   # groups of 4
