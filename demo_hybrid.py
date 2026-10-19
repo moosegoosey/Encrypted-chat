@@ -1,5 +1,5 @@
 """
-test_hybrid.py - Manual test for hybrid (RSA + AES) encryption.
+demo_hybrid.py - Manual test for hybrid (RSA + AES) encryption.
 
 Proves that:
   1. A message too large for RSA alone can be sent using AES + RSA together.

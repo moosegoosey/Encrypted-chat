@@ -1,5 +1,5 @@
 """
-test_keys.py - Manual test for the RSA functions.
+demo_keys.py - Manual test for the RSA functions.
 
 Simulates what happens in the real app: generate a key pair, send the public
 key as bytes, lock a message with it, and unlock it with the private key.
