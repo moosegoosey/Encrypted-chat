@@ -1,2 +1,4 @@
 venv/
 *.pem
+.pytest_cache/
+__pycache__/
