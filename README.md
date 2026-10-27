@@ -46,6 +46,8 @@ The server only forwards packets. Here is what it sees when a message is sent:
 | `crypto_utils.py` | RSA, AES-GCM, and fingerprint helper functions |
 | `test_crypto_utils.py` | Automated test suite |
 | `demo_keys.py`, `demo_hybrid.py` | Small demo scripts for the crypto functions |
+| `Dockerfile` | Builds the server image (runs as a non-root user) |
+| `docker-compose.yml` | One-command server startup |
 
 ## Running it
 
@@ -68,6 +70,29 @@ python client.py     # terminal 3
 ```
 
 Each client prints its fingerprint and the other user's. Compare them over a separate channel, then type `/verify` in both clients to start chatting.
+
+## Running the server with Docker
+
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
+```powershell
+docker compose up --build
+```
+
+The server listens on `ws://localhost:8765`, reachable only from your own machine. Then run clients locally (venv activated):
+
+```powershell
+python client.py
+```
+
+To stop the server: press `Ctrl+C`, then `docker compose down`.
+
+To point a client at a different server, set `SERVER_URL`:
+
+```powershell
+$env:SERVER_URL = "ws://example-host:8765"
+python client.py
+```
 
 ## Running the tests
 

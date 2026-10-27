@@ -1,0 +1,6 @@
+services:
+  server:
+    build: .
+    ports:
+      - "127.0.0.1:8765:8765"   # only reachable from this machine
+    restart: unless-stopped
