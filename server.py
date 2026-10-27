@@ -7,6 +7,10 @@ message contents, so once clients encrypt their messages, the server only
 ever sees ciphertext and cannot read the conversation.
 """
 
+import os
+HOST = os.environ.get("HOST", "localhost")
+PORT = int(os.environ.get("PORT", "8765"))
+
 import asyncio
 from websockets.asyncio.server import serve
 
@@ -34,8 +38,8 @@ async def handler(websocket):
 
 async def main():
     # Listen on this machine only (localhost), port 8765.
-    async with serve(handler, "localhost", 8765):
-        print("Server running on ws://localhost:8765")
+    async with serve(handler, HOST, PORT):
+        print(f"Server running on ws://{HOST}:{PORT}")
         await asyncio.Future()  # Wait forever so the server keeps running.
 
 

@@ -11,9 +11,12 @@ swap them (man-in-the-middle). Users therefore compare key fingerprints over
 a separate channel and type /verify before messages can be sent.
 """
 
+import os
 import asyncio
 import base64
 import json
+SERVER_URL = os.environ.get("SERVER_URL", "ws://localhost:8765")
+
 
 from websockets.asyncio.client import connect
 
@@ -93,7 +96,7 @@ async def main():
         "verified": False,    # True only after the user types /verify
     }
 
-    async with connect("ws://localhost:8765") as websocket:
+    async with connect(SERVER_URL) as websocket:
         asyncio.create_task(receive(websocket, state))
         await send_public_key(websocket, state)  # announce ourselves
 
